@@ -5,7 +5,7 @@ import io.reactivex.Observable
 import java.lang.IllegalArgumentException
 import java.util.concurrent.TimeUnit
 
-object TryConcatWith {
+object ConcatWith {
     private val firstObservable = Observable.intervalRange(0, 5, 0, 1, TimeUnit.SECONDS)
     private val secondObservable = Observable.intervalRange(5, 5, 1, 1, TimeUnit.SECONDS)
 
