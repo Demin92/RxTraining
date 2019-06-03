@@ -19,12 +19,15 @@ object RetryWhen {
         else (emitter.onNext(3))
     }
 
-    /*retry с задержкой*/
+    /*retryWhen с задержкой и предикатом*/
     @SuppressLint("CheckResult")
     fun tryRetry() {
         log("Start")
         observable
-            .retryWhen { it.delay(1, TimeUnit.SECONDS) }
+            .retryWhen {
+                it.map { throwable -> if (throwable.message == "testq") throwable else throw throwable }
+                    .delay(1, TimeUnit.SECONDS)
+            }
             .subscribe({
                 log("Success $it")
             }, {
