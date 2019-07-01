@@ -1,7 +1,6 @@
 package ru.demin.rxtraining
 
 import android.annotation.SuppressLint
-import android.os.Build.VERSION_CODES.P
 import io.reactivex.Observable
 import java.lang.RuntimeException
 
@@ -22,6 +21,8 @@ object OnErrorReturn {
     @SuppressLint("CheckResult")
     fun tryOnErrorReturn() {
         firstObservable
+            .onErrorReturn { 1 }
+            .onErrorReturn { 2 }
             .flatMap { secondObservable }
             .onErrorReturn { 10 }//относится ко 2му Observable
             .subscribe({
