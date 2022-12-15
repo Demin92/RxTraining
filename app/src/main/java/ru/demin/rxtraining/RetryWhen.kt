@@ -1,7 +1,9 @@
 package ru.demin.rxtraining
 
 import android.annotation.SuppressLint
+import android.util.Log
 import io.reactivex.Observable
+import io.reactivex.Single
 import java.io.IOException
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
@@ -30,7 +32,7 @@ object RetryWhen {
     fun tryRetry() {
         log("Start")
         observable
-            .retryWhen{ observable->
+            .retryWhen { observable ->
                 observable.flatMap { throwable ->
                     log("retry")
                     if (throwable is RetryException) Observable.timer(throwable.delay, TimeUnit.SECONDS)
@@ -42,10 +44,10 @@ object RetryWhen {
                 log("Success $it")
             }, {
                 log("Error")
-            },{
+            }, {
                 log("onComplete")
             })
     }
 }
 
-class RetryException(val delay: Long): Exception()
+class RetryException(val delay: Long) : Exception()
